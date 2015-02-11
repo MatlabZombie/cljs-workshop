@@ -11,6 +11,7 @@
                  [ring/ring-servlet "1.3.1" :exclusions [javax.servlet/servlet-api]]
                  [ring/ring-defaults "0.1.2"]
 
+                 [geocoder-clj "0.2.5"]
                  [javax.servlet/javax.servlet-api "3.1.0"]
                  [info.sunng/ring-jetty9-adapter "0.7.2"]
 

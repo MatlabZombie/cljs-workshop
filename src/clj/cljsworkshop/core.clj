@@ -15,6 +15,7 @@
 ;; Routes definition
 (defroutes app
   (GET "/" [] home)
+  (GET "/result" [] geocoder/geocode)
   (route/resources "/static")
   (route/not-found "<h1>Page not found</h1>"))
 

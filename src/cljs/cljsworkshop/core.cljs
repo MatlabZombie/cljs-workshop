@@ -2,21 +2,50 @@
   (:require [goog.events :as events]
             [goog.dom :as dom]))
 
-(defn main
-  []
+(def *map* nil)
+
+(def my-opts
+   {:zoom 3
+    :mapTypeId google.maps.MapTypeId.ROADMAP
+    :center (google.maps.LatLng. 29, 66)})
+   
+
+(defn- map-load []
+  (let [elem (dom/getElement "map-canvas")]
+     (set! *map* (google.maps.Map. elem (clj->js my-opts)))))
+
+(defn main []
   (let [counter  (atom 0)
-        button  (dom/getElement "button")
-        display (dom/getElement "clicksnumber")]
+        search-button  (dom/getElement "input-button")
+        display (dom/getElement "search-display")]
+ 
+    ;; Assign an load event listener 
+    (events/listen 
+      js/window 
+      "load" 
+      map-load)
 
-    ;; Set initial value
-    (set! (.-innerHTML display) @counter)
-
-    ;; Assign event listener
-    (events/listen button "click"
-                   (fn [event]
-                     ;; Increment the value
-                     (swap! counter inc)
-                     ;; Set new value in display element
-                     (set! (.-innerHTML display) @counter)))))
-
+    ;; Assign button click event listener
+    (events/listen 
+        search-button 
+        "click"
+        (fn [event] 
+          (let [search-term (.-value display)]
+            (.log js/console (str "Searching for " search-term))
+            )))))
+    
 (main)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
